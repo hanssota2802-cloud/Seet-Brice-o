@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweet Briceño - Endulza tu vida. ¡Te lo mereces!</title>
+    <meta name="description" content="Sweet Briceño - Pastelería artesanal. Tortas, postres, brownies y más. ¡Endulza tu vida!">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Overlay for mobile menu and cart -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Header -->
+
+        <div class="header-main">
+            <div class="container">
+                <div class="header-flex">
+                    <!-- Mobile Menu Button -->
+                    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menú">
+                        <i class="fas fa-bars"></i>
+                    </button>
+
+                    <!-- Logo -->
+                    <a href="/" class="logo">
+                        <span class="logo-text">Sweet<span class="logo-accent">Briceño</span></span>
+                    </a>
+
+                    <!-- Search Bar -->
+                    <div class="search-wrapper">
+                        <form class="search-form" id="searchForm">
+                            <input type="text" class="search-input" id="searchInput" placeholder="Buscar productos..." autocomplete="off">
+                            <button type="submit" class="search-btn" aria-label="Buscar">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </form>
+                        <div class="search-results" id="searchResults"></div>
+                    </div>
+
+                    <!-- Header Icons -->
+                    <div class="header-icons">
+                        <a href="#" class="icon-btn" id="accountBtn" aria-label="Mi cuenta">
+                            <i class="fas fa-user"></i>
+                            <span class="icon-label">Cuenta</span>
+                        </a>
+                        <a href="#" class="icon-btn" id="wishlistBtn" aria-label="Favoritos">
+                            <i class="fas fa-heart"></i>
+                            <span class="icon-count" id="wishlistCount">0</span>
+                            <span class="icon-label">Favoritos</span>
+                        </a>
+                        <a href="#" class="icon-btn" id="cartBtn" aria-label="Carrito">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="icon-count" id="cartCount">0</span>
+                            <span class="icon-label">Carrito</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="main-nav" id="mainNav">
+            <div class="container">
+                <ul class="nav-menu">
+                    <li><a href="#" class="active">Inicio</a></li>
+                    <li><a href="#">Tortas</a></li>
+                    <li><a href="#">Postres</a></li>
+                    <li><a href="#">Brownies</a></li>
+                    <li><a href="#">Galletas</a></li>
+                    <li><a href="#">Promociones</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu Drawer -->
+    <div class="mobile-drawer" id="mobileDrawer">
+        <div class="drawer-header">
+            <span class="logo-text">Sweet<span class="logo-accent">Briceño</span></span>
+            <button class="drawer-close" id="closeMobileDrawer" aria-label="Cerrar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="mobile-menu">
+            <li><a href="#"><i class="fas fa-home"></i> Inicio</a></li>
+            <li><a href="#"><i class="fas fa-birthday-cake"></i> Tortas</a></li>
+            <li><a href="#"><i class="fas fa-ice-cream"></i> Postres</a></li>
+            <li><a href="#"><i class="fas fa-cookie"></i> Brownies</a></li>
+            <li><a href="#"><i class="fas fa-cookie-bite"></i> Galletas</a></li>
+            <li><a href="#"><i class="fas fa-percent"></i> Promociones</a></li>
+            <li><a href="#"><i class="fas fa-envelope"></i> Contacto</a></li>
+        </ul>
+        <div class="mobile-contact">
+            <p><i class="fas fa-phone"></i> +1 (786) 631-2726</p>
+            <p><i class="fas fa-envelope"></i> contacto@sweetbriceno.pe</p>
+        </div>
+    </div>
+
+    <!-- Cart Drawer -->
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="drawer-header">
+            <h3><i class="fas fa-shopping-cart"></i> Mi Carrito</h3>
+            <button class="drawer-close" id="closeCartDrawer" aria-label="Cerrar carrito">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="cart-empty">
+                <i class="fas fa-shopping-basket"></i>
+                <p>Tu carrito está vacío</p>
+                <a href="#products" class="btn btn-primary" onclick="document.getElementById('cartDrawer').classList.remove('open'); document.getElementById('overlay').classList.remove('active');">Ver productos</a>
+            </div>
+        </div>
+        <div class="cart-footer" id="cartFooter" style="display:none;">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span class="total-price" id="cartTotal">S/ 0.00</span>
+            </div>
+            <button class="btn btn-primary btn-block">Finalizar compra</button>
+            <button class="btn btn-outline btn-block" id="continueShopping">Seguir comprando</button>
+        </div>
+    </div>
+
+    <!-- Wishlist Drawer -->
+    <div class="wishlist-drawer" id="wishlistDrawer">
+        <div class="drawer-header">
+            <h3><i class="fas fa-heart"></i> Mis Favoritos</h3>
+            <button class="drawer-close" id="closeWishlistDrawer" aria-label="Cerrar favoritos">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="wishlist-items" id="wishlistItems">
+            <div class="wishlist-empty">
+                <i class="fas fa-heart-broken"></i>
+                <p>No tienes productos favoritos</p>
+                <a href="#products" class="btn btn-primary" onclick="document.getElementById('wishlistDrawer').classList.remove('open'); document.getElementById('overlay').classList.remove('active');">Ver productos</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Slider -->
+    <section class="hero-slider" id="heroSlider">
+        <div class="slider-container">
+            <div class="slide active">
+                <div class="slide-bg" style="background: linear-gradient(135deg, #ffe6f0 0%, #f8a4c8 100%);">
+                    <div class="slide-content">
+                        <span class="slide-tag">Nuevos</span>
+                        <h2>Cremosos, refrescantes y llenos de sabor</h2>
+                        <p>Descubre nuestra nueva línea de postres con los mejores ingredientes</p>
+                        <a href="#products" class="btn btn-primary btn-lg">Ver productos</a>
+                    </div>
+                    <div class="slide-image">
+                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&h=500&fit=crop" alt="Postres cremosos">
+                    </div>
+                </div>
+            </div>
+            <div class="slide">
+                <div class="slide-bg" style="background: linear-gradient(135deg, #f8a4c8 0%, #e91e8c 100%);">
+                    <div class="slide-content">
+                        <span class="slide-tag">Promoción</span>
+                        <h2>Pídelo y disfruta ¡Te lo mereces!</h2>
+                        <p>Tenemos el regalo perfecto para cada ocasión especial</p>
+                        <a href="#products" class="btn btn-primary btn-lg">Ordenar ahora</a>
+                    </div>
+                    <div class="slide-image">
+                        <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&h=500&fit=crop" alt="Torta especial">
+                    </div>
+                </div>
+            </div>
+            <div class="slide">
+                <div class="slide-bg" style="background: linear-gradient(135deg, #fff0f5 0%, #ffb6c1 100%);">
+                    <div class="slide-content">
+                        <span class="slide-tag">Especial</span>
+                        <h2>Tu esfuerzo es valioso. ¡Ven y disfruta!</h2>
+                        <p>Celebra tus logros con nuestras deliciosas tortas artesanales</p>
+                        <a href="#products" class="btn btn-primary btn-lg">Ver catálogo</a>
+                    </div>
+                    <div class="slide-image">
+                        <img src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=600&h=500&fit=crop" alt="Torta celebración">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slider-controls">
+            <button class="slider-arrow slider-prev" id="sliderPrev" aria-label="Anterior">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="slider-dots">
+                <button class="dot active" data-slide="0" aria-label="Slide 1"></button>
+                <button class="dot" data-slide="1" aria-label="Slide 2"></button>
+                <button class="dot" data-slide="2" aria-label="Slide 3"></button>
+            </div>
+            <button class="slider-arrow slider-next" id="sliderNext" aria-label="Siguiente">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories-section" id="categories">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Nuestras Categorías</h2>
+                <p class="section-subtitle">Explora nuestra variedad de dulces</p>
+            </div>
+            <div class="categories-wrapper">
+                <button class="cat-arrow cat-prev" id="catPrev" aria-label="Anterior">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="categories-carousel" id="categoriesCarousel">
+                    <div class="category-card">
+                        <div class="category-img">
+                            <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&h=300&fit=crop" alt="Tortas">
+                        </div>
+                        <h3>Tortas</h3>
+                        <span class="category-count">12 productos</span>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-img">
+                            <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=300&h=300&fit=crop" alt="Postres">
+                        </div>
+                        <h3>Postres</h3>
+                        <span class="category-count">8 productos</span>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-img">
+                            <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=300&h=300&fit=crop" alt="Brownies">
+                        </div>
+                        <h3>Brownies</h3>
+                        <span class="category-count">6 productos</span>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-img">
+                            <img src="https://images.unsplash.com/photo-1499636138143-bd649043ea52?w=300&h=300&fit=crop" alt="Galletas">
+                        </div>
+                        <h3>Galletas</h3>
+                        <span class="category-count">10 productos</span>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-img">
+                            <img src="https://images.unsplash.com/photo-1558326567-98ae2405596b?w=300&h=300&fit=crop" alt="Cupcakes">
+                        </div>
+                        <h3>Cupcakes</h3>
+                        <span class="category-count">15 productos</span>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-img">
+                            <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=300&h=300&fit=crop" alt="Pies">
+                        </div>
+                        <h3>Pies</h3>
+                        <span class="category-count">5 productos</span>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-img">
+                            <img src="https://images.unsplash.com/photo-1555507036-ab1f40388085?w=300&h=300&fit=crop" alt="Panes">
+                        </div>
+                        <h3>Panes Dulces</h3>
+                        <span class="category-count">7 productos</span>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-img">
+                            <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=300&h=300&fit=crop" alt="Especiales">
+                        </div>
+                        <h3>Especiales</h3>
+                        <span class="category-count">4 productos</span>
+                    </div>
+                </div>
+                <button class="cat-arrow cat-next" id="catNext" aria-label="Siguiente">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section" id="products">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Productos Destacados</h2>
+                <p class="section-subtitle">Los favoritos de nuestros clientes</p>
+            </div>
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be rendered by JavaScript -->
+            </div>
+            <div class="text-center">
+                <a href="#" class="btn btn-outline btn-lg">Ver todos los productos</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Banner -->
+    <section class="features-section">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3>Envío a Domicilio</h3>
+                    <p>Recibe tus pedidos en la puerta de tu casa</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <h3>Calidad Premium</h3>
+                    <p>Ingredientes frescos y seleccionados</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Pedido Express</h3>
+                    <p>Entrega el mismo día en Lima</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Hecho con Amor</h3>
+                    <p>Cada postre es preparado con cariño</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-main">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-col">
+                        <a href="/" class="footer-logo">
+                            <span class="logo-text">Sweet<span class="logo-accent">Briceño</span></span>
+                        </a>
+                        <p class="footer-desc">Endulzamos tu vida con los mejores postres artesanales. Calidad, sabor y amor en cada bocado.</p>
+                        <div class="footer-social">
+                            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                            <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+                    <div class="footer-col">
+                        <h3>Enlaces Útiles</h3>
+                        <ul class="footer-links">
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Trabaja con nosotros</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Cartilla de alérgenos</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Zonas de reparto</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Contacto</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Preguntas frecuentes</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h3>Legal</h3>
+                        <ul class="footer-links">
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Políticas de privacidad</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Políticas de cookies</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Términos y condiciones</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h3>Contacto</h3>
+                        <ul class="footer-contact-list">
+                            <li><i class="fas fa-phone"></i> +1 (786) 631-2726</li>
+                            <li><i class="fas fa-envelope"></i> contacto@sweetbriceno.pe</li>
+                            <li><i class="fas fa-map-marker-alt"></i> Michigan, USA</li>
+                            <li><i class="fas fa-clock"></i> Lun - Dom: 9am - 8pm</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2026 Sweet Briceño. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Volver arriba">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Producto añadido al carrito</span>
+    </div>
+
+    <script src="js/products.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
+
